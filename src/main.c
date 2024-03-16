@@ -1,4 +1,5 @@
 #include "debug.h"
+#include "input.h"
 #include "viewport.h"
 #include <raylib.h>
 
@@ -12,9 +13,15 @@ int main(void) {
 
   viewport_init();
   SetTargetFPS(60);
+  SetExitKey(0);
   while (!WindowShouldClose()) {
     viewport_new_frame();
     debug_update_data();
+    input_handle();
+
+    if (input_current() & CANCEL)
+      break;
+
     RenderTexture* viewport = viewport_get_current();
     const int center_x = viewport->texture.width / 2;
     const int center_y = viewport->texture.height / 2;
