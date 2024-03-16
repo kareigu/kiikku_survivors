@@ -10,7 +10,7 @@ set(NINJA_MULTICONFIG (CMAKE_GENERATOR STREQUAL "Ninja Multi-Config"))
 
 fetch_project_dependencies()
 
-set(PROJECT_SOURCES src/main.c)
+set(PROJECT_SOURCES src/main.c src/viewport.c)
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
