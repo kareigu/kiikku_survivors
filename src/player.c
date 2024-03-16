@@ -23,8 +23,8 @@ void player_handle_input(player_t* player, inputs_t inputs) {
   return;
 }
 
-void player_draw(player_t* player, RenderTexture* viewport) {
-  int x = (int)player->pos.x + viewport->texture.width / 2;
-  int y = (int)player->pos.y + viewport->texture.height / 2;
+void player_draw(player_t* player, Vector2 viewport_size) {
+  int x = (int)player->pos.x + viewport_size.x / 2;
+  int y = (int)player->pos.y + viewport_size.y / 2;
   DrawRectangle(x, y, 4, 4, GREEN);
 }

@@ -11,5 +11,5 @@ typedef struct {
 
 player_t player_create();
 void player_handle_input(player_t* player, inputs_t inputs);
-void player_draw(player_t* player, RenderTexture* viewport);
+void player_draw(player_t* player, Vector2 viewport_size);
 #endif // !DEBUG

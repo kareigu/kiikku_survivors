@@ -16,6 +16,7 @@ set(PROJECT_SOURCES
     src/debug.c
     src/player.c
     src/input.c
+    src/renderer.c
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
