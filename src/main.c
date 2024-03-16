@@ -29,10 +29,7 @@ int main(void) {
 
     BeginDrawing();
     ClearBackground(BLACK);
-    Rectangle source = {.x = 0, .y = 0, .width = viewport->texture.width, .height = -viewport->texture.height};
-    Rectangle dest = {.x = 0, .y = 0, .width = RESOLUTION_X, .height = RESOLUTION_Y};
-    Vector2 origin = {.x = 0, .y = 0};
-    DrawTexturePro(viewport->texture, source, dest, origin, 0, WHITE);
+    viewport_draw_scaled((Rectangle){.x = 0, .y = 0, .width = RESOLUTION_X, .height = RESOLUTION_Y});
     debug_draw_display();
     EndDrawing();
   }

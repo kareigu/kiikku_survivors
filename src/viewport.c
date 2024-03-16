@@ -22,3 +22,10 @@ RenderTexture* viewport_get_current() {
 u8 viewport_get_current_index() {
   return current_viewport;
 }
+
+void viewport_draw_scaled(Rectangle output_rect) {
+  RenderTexture* viewport = viewport_get_current();
+  Rectangle source = {.x = 0, .y = 0, .width = viewport->texture.width, .height = -viewport->texture.height};
+  Vector2 origin = {.x = 0, .y = 0};
+  DrawTexturePro(viewport->texture, source, output_rect, origin, 0, WHITE);
+}
