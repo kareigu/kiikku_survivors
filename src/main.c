@@ -1,5 +1,6 @@
 #include "debug.h"
 #include "input.h"
+#include "player.h"
 #include "viewport.h"
 #include <raylib.h>
 
@@ -14,10 +15,13 @@ int main(void) {
   viewport_init();
   SetTargetFPS(60);
   SetExitKey(0);
+
+  player_t player = player_create();
   while (!WindowShouldClose()) {
     viewport_new_frame();
     debug_update_data();
     input_handle();
+    player_handle_input(&player, input_current());
 
     if (input_current() & CANCEL)
       break;
@@ -32,6 +36,7 @@ int main(void) {
     Vector2 text_size = MeasureTextEx(GetFontDefault(), text, 12, 0);
     DrawText(text, center_x - (int) text_size.x / 2, center_y - (int) text_size.y / 2, 12, RAYWHITE);
     DrawRectangleRounded((Rectangle){.x = center_x + (int) GetTime() % 5, .y = center_y + 20, .width = 8, .height = 8}, 4.0f, 4, RED);
+    player_draw(&player, viewport);
     EndTextureMode();
 
     BeginDrawing();

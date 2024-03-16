@@ -14,6 +14,7 @@ set(PROJECT_SOURCES
     src/main.c
     src/viewport.c
     src/debug.c
+    src/player.c
     src/input.c
 )
 
