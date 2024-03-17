@@ -5,11 +5,11 @@
 
 player_t player_create() {
   return (player_t){
-    .pos = {.x = 0, .y = 0},
-    .dir = {.x = 0, .y = 0},
-    .vel = {.x = 0, .y = 0},
-    .hp = 6,
-    .mp = 10,
+          .pos = {.x = 0, .y = 0},
+          .dir = {.x = 0, .y = 0},
+          .vel = 4,
+          .hp = 6,
+          .mp = 10,
   };
 }
 

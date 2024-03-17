@@ -7,7 +7,7 @@
 typedef struct {
   Vector2 pos;
   Vector2 dir;
-  Vector2 vel;
+  float vel;
   u8 hp;
   u8 mp;
 } player_t;
