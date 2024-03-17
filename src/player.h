@@ -7,9 +7,7 @@
 typedef struct {
   Vector2 pos;
   Vector2 dir;
-  float vel;
-  u8 hp;
-  u8 mp;
+  stats_t stats;
 } player_t;
 
 player_t player_create();

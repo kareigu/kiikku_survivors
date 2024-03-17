@@ -7,14 +7,15 @@ player_t player_create() {
   return (player_t){
           .pos = {.x = 0, .y = 0},
           .dir = {.x = 0, .y = 0},
-          .vel = 4,
-          .hp = 6,
-          .mp = 10,
-  };
+          .stats = {
+                  .vel = 4,
+                  .hp = 6,
+                  .mp = 10,
+          }};
 }
 
 void player_handle_input(player_t* player, inputs_t inputs) {
-  float vel = player->vel * GetFrameTime();
+  float vel = player->stats.vel * GetFrameTime();
   if (inputs & UP)
     player->pos.y -= vel;
   if (inputs & DOWN)

@@ -12,7 +12,7 @@ void renderer_hud_draw(RenderTexture* target_viewport, player_t* player) {
   int height = target_viewport->texture.height;
 
   char stats[32];
-  sprintf(stats, "| HP: %d | MP: %d |", player->hp, player->mp);
+  sprintf(stats, "| HP: %d | MP: %d |", player->stats.hp, player->stats.mp);
 
   BeginTextureMode(*target_viewport);
 

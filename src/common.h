@@ -10,4 +10,10 @@
 #define u64 unsigned long long
 #define i64 unsigned long long
 
+typedef struct {
+  float vel;
+  u8 hp;
+  u8 mp;
+} stats_t;
+
 #endif
