@@ -8,31 +8,28 @@ inputs_t input_current() {
 }
 
 void input_handle() {
-  inputs = 0;
-  for(int key = GetKeyPressed(); key != 0; key = GetKeyPressed()) {
-    switch (key) {
-      case KEY_UP:
-      case KEY_W:
-        inputs |= UP;
-        continue;
-      case KEY_DOWN:
-      case KEY_S:
-        inputs |= DOWN;
-        continue;
-      case KEY_LEFT:
-      case KEY_A:
-        inputs |= LEFT;
-        continue;
-      case KEY_RIGHT:
-      case KEY_D:
-        inputs |= RIGHT;
-        continue;
-      case KEY_ENTER:
-        inputs |= OK;
-        continue;
-      case KEY_ESCAPE:
-        inputs |= CANCEL;
-        continue;
-    }
-  }
+  if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
+    inputs |= UP;
+  else
+    inputs &= ~UP;
+  if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
+    inputs |= DOWN;
+  else
+    inputs &= ~DOWN;
+  if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
+    inputs |= LEFT;
+  else
+    inputs &= ~LEFT;
+  if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
+    inputs |= RIGHT;
+  else
+    inputs &= ~RIGHT;
+  if (IsKeyDown(KEY_ESCAPE))
+    inputs |= CANCEL;
+  else
+    inputs &= ~CANCEL;
+  if (IsKeyDown(KEY_ENTER))
+    inputs |= OK;
+  else
+    inputs &= ~OK;
 }
