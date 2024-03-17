@@ -11,7 +11,7 @@
 #define RESOLUTION_Y 600
 
 int main(void) {
-  InitWindow(RESOLUTION_X, RESOLUTION_Y, "coque");
+  InitWindow(RESOLUTION_X, RESOLUTION_Y, "kiikku survivors");
   TraceLog(LOG_INFO, "Window opened { x = %d, y = %d }", RESOLUTION_X, RESOLUTION_Y);
 
 

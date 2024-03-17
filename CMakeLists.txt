@@ -5,7 +5,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/dependencies.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/tidy.cmake)
 include(FetchContent)
 
-project(coque VERSION 0.1.0 LANGUAGES C)
+project(kiikku_survivors VERSION 0.1.0 LANGUAGES C)
 set(NINJA_MULTICONFIG (CMAKE_GENERATOR STREQUAL "Ninja Multi-Config"))
 
 fetch_project_dependencies()
