@@ -28,7 +28,7 @@ int main(void) {
       break;
 
     RenderTexture* viewport = viewport_get_current();
-    renderer_draw(viewport, (renderer_data_t){&player });
+    renderer_draw(viewport, (renderer_data_t){&player, viewport_get_hud() });
 
     BeginDrawing();
     ClearBackground(BLACK);

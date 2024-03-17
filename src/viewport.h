@@ -12,6 +12,8 @@ u8 viewport_get_current_index();
 void viewport_init();
 void viewport_new_frame();
 
+RenderTexture* viewport_get_hud();
+
 /// Draw currently active viewport scaled to `output_rect`
 void viewport_draw_scaled(Rectangle output_rect);
 

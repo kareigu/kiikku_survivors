@@ -8,6 +8,8 @@ player_t player_create() {
     .pos = {.x = 0, .y = 0},
     .dir = {.x = 0, .y = 0},
     .vel = {.x = 0, .y = 0},
+    .hp = 6,
+    .mp = 10,
   };
 }
 

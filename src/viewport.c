@@ -5,10 +5,13 @@
 static RenderTexture viewports[2];
 static u8 current_viewport = 0;
 
+static RenderTexture hud_viewport;
+
 void viewport_init() {
   viewports[0] = LoadRenderTexture(VIEWPORT_X, VIEWPORT_Y);
   viewports[1] = LoadRenderTexture(VIEWPORT_X, VIEWPORT_Y);
-  TraceLog(LOG_INFO, "viewport initialised");
+  hud_viewport = LoadRenderTexture(VIEWPORT_X - VIEWPORT_TILE * 2, 2 * VIEWPORT_TILE);
+  TraceLog(LOG_INFO, "viewports initialised");
 }
 
 void viewport_new_frame() {
@@ -21,6 +24,10 @@ RenderTexture* viewport_get_current() {
 
 u8 viewport_get_current_index() {
   return current_viewport;
+}
+
+RenderTexture* viewport_get_hud() {
+  return &hud_viewport;
 }
 
 void viewport_draw_scaled(Rectangle output_rect) {
