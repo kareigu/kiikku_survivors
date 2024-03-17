@@ -14,14 +14,15 @@ player_t player_create() {
 }
 
 void player_handle_input(player_t* player, inputs_t inputs) {
+  float vel = player->vel * GetFrameTime();
   if (inputs & UP)
-    player->pos.y--;
+    player->pos.y -= vel;
   if (inputs & DOWN)
-    player->pos.y++;
+    player->pos.y += vel;
   if (inputs & LEFT)
-    player->pos.x--;
+    player->pos.x -= vel;
   if (inputs & RIGHT)
-    player->pos.x++;
+    player->pos.x += vel;
 
   return;
 }
