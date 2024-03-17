@@ -32,6 +32,7 @@ int main(void) {
     debug_update_data();
     input_handle();
     player_handle_input(&player, input_current());
+    enemy_handle_move(enemies, max_enemies, player.pos);
 
     if (input_current() & CANCEL)
       break;

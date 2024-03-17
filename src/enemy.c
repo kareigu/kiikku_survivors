@@ -2,6 +2,7 @@
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
+#include <raymath.h>
 #include <string.h>
 
 static enemy_t enemies[sizeof(enemy_type_t) * 255 + 1];
@@ -26,6 +27,20 @@ void enemy_spawn_wave(enemy_t* buffer, u64 amount) {
     memcpy(&buffer[i], &enemies[TEST], sizeof(enemy_t));
     buffer[i].pos.x = GetRandomValue(-10, 10);
     buffer[i].pos.y = GetRandomValue(-10, 10);
+  }
+}
+
+void enemy_handle_move(enemy_t* buffer, u64 max_count, Vector2 player_pos) {
+  for (u64 i = 0; i < max_count; i++) {
+    enemy_t* enemy = &buffer[i];
+    float vel = enemy->stats.vel * GetFrameTime();
+    switch (enemy->type) {
+      case NONE:
+        continue;
+      case TEST: {
+        enemy->pos = Vector2MoveTowards(enemy->pos, player_pos, vel);
+      }
+    }
   }
 }
 

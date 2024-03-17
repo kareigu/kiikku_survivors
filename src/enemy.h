@@ -17,6 +17,7 @@ typedef struct {
 void enemy_init();
 void enemy_create_buffer(enemy_t* buffer, u64 max_count);
 void enemy_spawn_wave(enemy_t* buffer, u64 amount);
+void enemy_handle_move(enemy_t* buffer, u64 max_count, Vector2 player_pos);
 void enemy_draw(enemy_t* enemy);
 
 #endif
