@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "enemy.h"
 #include "player.h"
 #include "viewport.h"
 #include <assert.h>
@@ -39,6 +40,11 @@ void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data
 
   ClearBackground(GRAY);
   DrawRectangleRounded((Rectangle){.x = center_x + (int) GetTime() % 5, .y = center_y + 20, .width = (float) VIEWPORT_TILE, .height = (float) VIEWPORT_TILE}, 4.0f, 4, RED);
+
+  for (u64 i = 0; i < renderer_data.enemy_buffer_size; i++) {
+    enemy_draw(&renderer_data.enemy_buffer[i]);
+  }
+
   player_draw(player, viewport_size);
 
   DrawTexturePro(
