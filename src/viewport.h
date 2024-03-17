@@ -10,6 +10,7 @@
 RenderTexture* viewport_get_current();
 u8 viewport_get_current_index();
 void viewport_init();
+void viewport_deinit();
 void viewport_new_frame();
 
 RenderTexture* viewport_get_hud();

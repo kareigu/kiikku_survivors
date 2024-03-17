@@ -14,6 +14,13 @@ void viewport_init() {
   TraceLog(LOG_INFO, "viewports initialised");
 }
 
+void viewport_deinit() {
+  UnloadRenderTexture(viewports[0]);
+  UnloadRenderTexture(viewports[1]);
+  UnloadRenderTexture(hud_viewport);
+  TraceLog(LOG_INFO, "viewports unloaded");
+}
+
 void viewport_new_frame() {
   current_viewport = current_viewport == 1 ? 0 : 1;
 }

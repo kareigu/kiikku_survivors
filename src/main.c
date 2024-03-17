@@ -51,6 +51,7 @@ int main(void) {
     EndDrawing();
   }
 
+  viewport_deinit();
   CloseWindow();
 
   return 0;
