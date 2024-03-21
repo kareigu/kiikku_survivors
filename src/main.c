@@ -22,6 +22,10 @@ int main(void) {
   SetExitKey(0);
   SetRandomSeed(time(nullptr));
 
+#ifndef NDEBUG
+  SetTraceLogLevel(LOG_DEBUG);
+#endif
+
   player_t player = player_create();
   u64 max_enemies = 1024;
   enemy_t enemies[max_enemies];
