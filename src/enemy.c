@@ -1,47 +1,85 @@
 #include "enemy.h"
+#include "common.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
 #include <raymath.h>
+#include <stdbool.h>
 #include <string.h>
 
 static enemy_t enemies[sizeof(enemy_type_t) * 255 + 1];
+static enemy_t* s_enemy_buffer = nullptr;
+static u64 s_enemy_buffer_size = 1024;
 
 void enemy_init() {
   Vector2 pos = {0, 0};
   enemies[NONE] = (enemy_t){pos, .stats = {0, 0, 0}, NONE};
   enemies[TEST] = (enemy_t){pos, .stats = {2, 2, 1}, TEST};
+
+  s_enemy_buffer = MemAlloc(sizeof(enemy_t) * s_enemy_buffer_size);
+  assert(s_enemy_buffer);
 }
 
-void enemy_create_buffer(enemy_t* buffer, u64 max_count) {
-  assert(buffer);
-
-  for (u64 i = 0; i < max_count; i++)
-    memcpy(&buffer[i], &enemies[NONE], sizeof(enemy_t));
-
-  TraceLog(LOG_INFO, "enemy buffer initialised to %d", max_count);
+enemy_t* enemy_buffer() {
+  return s_enemy_buffer;
+}
+u64 enemy_buffer_size() {
+  return s_enemy_buffer_size;
 }
 
-void enemy_spawn_wave(enemy_t* buffer, u64 amount) {
+void enemy_create_buffer() {
+  assert(s_enemy_buffer);
+
+  for (u64 i = 0; i < s_enemy_buffer_size; i++)
+    memcpy(&s_enemy_buffer[i], &enemies[NONE], sizeof(enemy_t));
+
+  TraceLog(LOG_INFO, "enemy buffer initialised to %d", s_enemy_buffer_size);
+}
+
+void enemy_spawn_wave(u64 amount) {
   for (u64 i = 0; i < amount; i++) {
-    memcpy(&buffer[i], &enemies[TEST], sizeof(enemy_t));
-    buffer[i].pos.x = GetRandomValue(-10, 10);
-    buffer[i].pos.y = GetRandomValue(-10, 10);
+    memcpy(&s_enemy_buffer[i], &enemies[TEST], sizeof(enemy_t));
+    s_enemy_buffer[i].pos.x = GetRandomValue(-10, 10);
+    s_enemy_buffer[i].pos.y = GetRandomValue(-10, 10);
   }
 }
 
-void enemy_handle_move(enemy_t* buffer, u64 max_count, Vector2 player_pos) {
-  for (u64 i = 0; i < max_count; i++) {
-    enemy_t* enemy = &buffer[i];
-    float vel = enemy->stats.vel * GetFrameTime();
+void enemy_handle_move(Vector2 player_pos) {
+  float delta = GetFrameTime();
+  for (u64 i = 0; i < s_enemy_buffer_size; i++) {
+    enemy_t* enemy = &s_enemy_buffer[i];
+    float vel = enemy->stats.vel * delta;
     switch (enemy->type) {
       case NONE:
         continue;
       case TEST: {
-        enemy->pos = Vector2MoveTowards(enemy->pos, player_pos, vel);
+        Vector2 proposed_pos = Vector2MoveTowards(enemy->pos, player_pos, vel);
+        bool colliding = false;
+        for (u64 j = 0; j < s_enemy_buffer_size; j++) {
+          if (j == i) continue;
+
+          enemy_t* other = &s_enemy_buffer[j];
+          if (enemy_colliding_with(other, proposed_pos)) {
+            colliding = true;
+            break;
+          }
+        }
+
+        if (colliding) {
+          float vel = enemy->stats.vel / 3 * delta;
+          Vector2 proposed_pos = Vector2MoveTowards(enemy->pos, player_pos, vel);
+          enemy->pos = proposed_pos;
+        } else {
+          enemy->pos = proposed_pos;
+        }
+        continue;
       }
     }
   }
+}
+
+bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos) {
+  return CheckCollisionCircles(enemy->pos, 0.5f, other_pos, 0.5f);
 }
 
 void enemy_draw(enemy_t* enemy) {

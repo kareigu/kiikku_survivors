@@ -14,10 +14,14 @@ typedef struct {
   enemy_type_t type;
 } enemy_t;
 
+enemy_t* enemy_buffer();
+u64 enemy_buffer_size();
+
 void enemy_init();
-void enemy_create_buffer(enemy_t* buffer, u64 max_count);
-void enemy_spawn_wave(enemy_t* buffer, u64 amount);
-void enemy_handle_move(enemy_t* buffer, u64 max_count, Vector2 player_pos);
+void enemy_spawn_wave(u64 amount);
+void enemy_handle_move(Vector2 player_pos);
+bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos);
+
 void enemy_draw(enemy_t* enemy);
 
 #endif

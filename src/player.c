@@ -16,14 +16,17 @@ player_t player_create() {
 
 void player_handle_input(player_t* player, inputs_t inputs) {
   float vel = player->stats.vel * GetFrameTime();
+  Vector2 pos = player->pos;
   if (inputs & UP)
-    player->pos.y -= vel;
+    pos.y -= vel;
   if (inputs & DOWN)
-    player->pos.y += vel;
+    pos.y += vel;
   if (inputs & LEFT)
-    player->pos.x -= vel;
+    pos.x -= vel;
   if (inputs & RIGHT)
-    player->pos.x += vel;
+    pos.x += vel;
+
+  player->pos = pos;
 
   return;
 }

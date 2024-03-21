@@ -27,28 +27,25 @@ int main(void) {
 #endif
 
   player_t player = player_create();
-  u64 max_enemies = 1024;
-  enemy_t enemies[max_enemies];
-  enemy_create_buffer(enemies, max_enemies);
 
-  enemy_spawn_wave(enemies, GetRandomValue(5, 8));
+  enemy_spawn_wave(GetRandomValue(50, 200));
 
   while (!WindowShouldClose()) {
     viewport_new_frame();
     debug_update_data();
     input_handle();
     player_handle_input(&player, input_current());
-    enemy_handle_move(enemies, max_enemies, player.pos);
+    enemy_handle_move(player.pos);
 
     if (input_current() & CANCEL)
       break;
 
     RenderTexture* viewport = viewport_get_current();
     renderer_draw(viewport,
-                  (renderer_data_t){&player,
-                                    viewport_get_hud(),
-                                    enemies,
-                                    max_enemies});
+                  (renderer_data_t){
+                          &player,
+                          viewport_get_hud(),
+                  });
 
     BeginDrawing();
     ClearBackground(BLACK);
