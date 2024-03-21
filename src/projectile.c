@@ -1,5 +1,6 @@
 #include "projectile.h"
 #include "common.h"
+#include "enemy.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
@@ -31,6 +32,27 @@ void projectile_update(player_t* player) {
         continue;
       case PROJECTILE_TYPE_ONE_HIT: {
         projectile->pos = Vector2Add(projectile->pos, Vector2Multiply(projectile->dir, (Vector2){vel, vel}));
+        switch(projectile->target) {
+          case PROJECTILE_TARGET_EMPTY:
+            continue;
+          case PROJECTILE_TARGET_ENEMY: {
+            bool collided = false;
+            for (u64 i = 0; i < enemy_buffer_size(); i++) {
+              enemy_t* enemy = &enemy_buffer()[i];
+              if (enemy_colliding_with(enemy, projectile->pos)) {
+                collided = true;
+                int damage = 99;
+                if (enemy->stats.hp - damage < 0)
+                  enemy->stats.hp = 0;
+                else
+                  enemy->stats.hp -= damage;
+              }
+            }
+          }
+          case PROJECTILE_TARGET_PLAYER: {
+            continue;
+          }
+        }
       }
     }
   }
