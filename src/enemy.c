@@ -20,6 +20,17 @@ void enemy_init() {
   assert(s_enemy_buffer);
 }
 
+void enemy_update() {
+  for (u64 i = 0; i < s_enemy_buffer_size; i++) {
+    enemy_t* enemy = &s_enemy_buffer[i];
+    if (enemy->type == NONE) continue;
+    if (enemy->stats.hp == 0) {
+      enemy->type = NONE;
+      continue;
+    }
+  }
+}
+
 enemy_t* enemy_buffer() {
   return s_enemy_buffer;
 }

@@ -38,7 +38,9 @@ int main(void) {
     input_handle();
     player_handle_input(&player, input_current());
     enemy_handle_move(player.pos);
+
     projectile_update(&player);
+    enemy_update();
 
     if (input_current() & CANCEL)
       break;
