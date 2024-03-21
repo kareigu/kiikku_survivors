@@ -3,11 +3,12 @@
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
+#include <raymath.h>
 
 player_t player_create() {
   return (player_t){
           .pos = {.x = 0, .y = 0},
-          .dir = {.x = 0, .y = 0},
+          .dir = {.x = 0, .y = -1},
           .stats = {
                   .vel = 4,
                   .hp = 6,
@@ -26,6 +27,9 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     pos.x -= vel;
   if (inputs & RIGHT)
     pos.x += vel;
+
+  if (!Vector2Equals(pos, player->pos))
+    player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
 
   player->pos = pos;
 
