@@ -1,6 +1,7 @@
 #include "player.h"
 #include "input.h"
 #include "viewport.h"
+#include <assert.h>
 #include <raylib.h>
 
 player_t player_create() {
@@ -32,7 +33,8 @@ void player_handle_input(player_t* player, inputs_t inputs) {
 }
 
 void player_draw(player_t* player, Vector2 viewport_size) {
-  int x = player->pos.x * VIEWPORT_TILE + viewport_size.x / 2;
-  int y = player->pos.y * VIEWPORT_TILE + viewport_size.y / 2;
-  DrawRectangle(x, y, VIEWPORT_TILE, VIEWPORT_TILE, GREEN);
+  assert(player);
+  int x = (player->pos.x * VIEWPORT_TILE + viewport_size.x / 2);
+  int y = (player->pos.y * VIEWPORT_TILE + viewport_size.y / 2);
+  DrawRectangle(x - VIEWPORT_TILE / 2, y - VIEWPORT_TILE / 2, VIEWPORT_TILE, VIEWPORT_TILE, GREEN);
 }
