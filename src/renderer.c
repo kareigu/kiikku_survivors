@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include "enemy.h"
 #include "player.h"
+#include "projectile.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
@@ -46,6 +47,10 @@ void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data
   }
 
   player_draw(player, viewport_size);
+
+  for (u64 i = 0; i < projectile_buffer_size(); i++) {
+    projectile_draw(&projectile_buffer()[i], viewport_size);
+  }
 
   DrawTexturePro(
           hud_viewport->texture,

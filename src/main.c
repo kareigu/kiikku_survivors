@@ -3,6 +3,7 @@
 #include "enemy.h"
 #include "input.h"
 #include "player.h"
+#include "projectile.h"
 #include "renderer.h"
 #include "viewport.h"
 #include <raylib.h>
@@ -27,6 +28,7 @@ int main(void) {
 #endif
 
   player_t player = player_create();
+  projectile_buffer_init();
 
   enemy_spawn_wave(GetRandomValue(50, 200));
 
@@ -36,6 +38,7 @@ int main(void) {
     input_handle();
     player_handle_input(&player, input_current());
     enemy_handle_move(player.pos);
+    projectile_update(&player);
 
     if (input_current() & CANCEL)
       break;

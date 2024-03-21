@@ -1,5 +1,6 @@
 #include "player.h"
 #include "input.h"
+#include "projectile.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
@@ -30,6 +31,17 @@ void player_handle_input(player_t* player, inputs_t inputs) {
 
   if (!Vector2Equals(pos, player->pos))
     player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
+
+  if (inputs & OK) {
+    projectile_t* projectile = projectile_create();
+    projectile->dir = player->dir;
+    projectile->pos = player->pos;
+    projectile->vel = 8;
+    projectile->type = PROJECTILE_TYPE_ONE_HIT;
+    projectile->target = PROJECTILE_TARGET_ENEMY;
+    projectile->source_type = PROJECTILE_TARGET_PLAYER;
+    projectile->source = (void*)player;
+  }
 
   player->pos = pos;
 

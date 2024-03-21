@@ -18,6 +18,7 @@ set(PROJECT_SOURCES
     src/input.c
     src/renderer.c
     src/enemy.c
+    src/projectile.c
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
