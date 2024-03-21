@@ -41,4 +41,5 @@ void player_draw(player_t* player, Vector2 viewport_size) {
   int x = (player->pos.x * VIEWPORT_TILE + viewport_size.x / 2);
   int y = (player->pos.y * VIEWPORT_TILE + viewport_size.y / 2);
   DrawRectangle(x - VIEWPORT_TILE / 2, y - VIEWPORT_TILE / 2, VIEWPORT_TILE, VIEWPORT_TILE, GREEN);
+  DrawLineEx((Vector2){x, y}, (Vector2){x + VIEWPORT_TILE * player->dir.x, y + VIEWPORT_TILE * player->dir.y}, VIEWPORT_TILE / 8, PINK);
 }
