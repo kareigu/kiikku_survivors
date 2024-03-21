@@ -6,6 +6,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include <raylib.h>
+#include <time.h>
 
 #define RESOLUTION_X 800
 #define RESOLUTION_Y 600
@@ -19,6 +20,7 @@ int main(void) {
   enemy_init();
   SetTargetFPS(60);
   SetExitKey(0);
+  SetRandomSeed(time(nullptr));
 
   player_t player = player_create();
   u64 max_enemies = 1024;

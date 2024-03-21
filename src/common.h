@@ -9,6 +9,7 @@
 #define i32 int
 #define u64 unsigned long long
 #define i64 unsigned long long
+#define nullptr 0
 
 typedef struct {
   float vel;
