@@ -18,6 +18,7 @@ player_t player_create() {
 }
 
 void player_handle_input(player_t* player, inputs_t inputs) {
+  static inputs_t prev_inputs;
   float vel = player->stats.vel * GetFrameTime();
   Vector2 pos = player->pos;
   if (inputs & UP)
@@ -32,7 +33,7 @@ void player_handle_input(player_t* player, inputs_t inputs) {
   if (!Vector2Equals(pos, player->pos))
     player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
 
-  if (inputs & OK) {
+  if (inputs & OK && !(prev_inputs & OK)) {
     projectile_t* projectile = projectile_create();
     projectile->dir = player->dir;
     projectile->pos = player->pos;
@@ -45,6 +46,7 @@ void player_handle_input(player_t* player, inputs_t inputs) {
 
   player->pos = pos;
 
+  prev_inputs = inputs;
   return;
 }
 
