@@ -10,6 +10,7 @@ typedef enum : u8 {
 
 typedef struct {
   Vector2 pos;
+  float width;
   stats_t stats;
   enemy_type_t type;
 } enemy_t;

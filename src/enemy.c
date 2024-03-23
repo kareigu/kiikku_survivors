@@ -13,8 +13,8 @@ static u64 s_enemy_buffer_size = 1024;
 
 void enemy_init() {
   Vector2 pos = {0, 0};
-  enemies[ENEMY_TYPE_NONE] = (enemy_t){pos, .stats = {0, 0, 0}, ENEMY_TYPE_NONE};
-  enemies[ENEMY_TYPE_TEST] = (enemy_t){pos, .stats = {2, 2, 1}, ENEMY_TYPE_TEST};
+  enemies[ENEMY_TYPE_NONE] = (enemy_t){pos, 0.0f, .stats = {0, 0, 0}, ENEMY_TYPE_NONE};
+  enemies[ENEMY_TYPE_TEST] = (enemy_t){pos, 0.5f, .stats = {2, 2, 1}, ENEMY_TYPE_TEST};
 
   s_enemy_buffer = MemAlloc(sizeof(enemy_t) * s_enemy_buffer_size);
   assert(s_enemy_buffer);
