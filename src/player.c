@@ -58,20 +58,23 @@ void player_handle_input(player_t* player, inputs_t inputs) {
       player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
   }
 
-  if (inputs & INPUT_OK && !(prev_inputs & INPUT_OK)) {
-    projectile_t* projectile = projectile_create();
-    projectile->dir = player->dir;
-    projectile->pos = player->pos;
-    projectile->vel = 8;
-    projectile->type = PROJECTILE_TYPE_ONE_HIT;
-    projectile->target = PROJECTILE_TARGET_ENEMY;
-    projectile->source_type = PROJECTILE_TARGET_PLAYER;
-    projectile->source = (void*) player;
-  }
+  if (inputs & INPUT_OK && !(prev_inputs & INPUT_OK))
+    player_shoot(player);
 
 
   prev_inputs = inputs;
   return;
+}
+
+void player_shoot(player_t* player) {
+  projectile_t* projectile = projectile_create();
+  projectile->dir = player->dir;
+  projectile->pos = player->pos;
+  projectile->vel = 8;
+  projectile->type = PROJECTILE_TYPE_ONE_HIT;
+  projectile->target = PROJECTILE_TARGET_ENEMY;
+  projectile->source_type = PROJECTILE_TARGET_PLAYER;
+  projectile->source = (void*) player;
 }
 
 void player_draw(player_t* player, Vector2 viewport_size) {
