@@ -19,26 +19,53 @@ u64 projectile_buffer_size() {
 void projectile_buffer_init() {
   s_projectile_buffer = MemAlloc(sizeof(projectile_t) * s_projectile_buffer_size);
   for (u64 i = 0; i < s_projectile_buffer_size; i++)
-    s_projectile_buffer[i] = (projectile_t){{0, 0}, {0, 0}, 0.0f, PROJECTILE_TYPE_NONE, PROJECTILE_TARGET_EMPTY, PROJECTILE_TARGET_ENEMY, nullptr};
+    s_projectile_buffer[i] = (projectile_t){{0, 0},
+                                            {0, 0},
+                                            0.0f,
+                                            0,
+                                            0,
+                                            0.0f,
+                                            0.0f,
+                                            PROJECTILE_TYPE_NONE,
+                                            PROJECTILE_TARGET_EMPTY,
+                                            PROJECTILE_TARGET_ENEMY,
+                                            nullptr};
 }
 
 void projectile_update(player_t* player) {
   float delta = GetFrameTime();
   for (u64 i = 0; i < s_projectile_buffer_size; i++) {
     projectile_t* projectile = &s_projectile_buffer[i];
+
+    projectile->ttl += delta * 1000;
     float vel = projectile->vel * delta;
+
+    if (projectile->hit_count >= projectile->max_hit_count) {
+      projectile->type = PROJECTILE_TYPE_NONE;
+      continue;
+    }
+
+    if (projectile->ttl >= projectile->max_ttl) {
+      projectile->type = PROJECTILE_TYPE_NONE;
+      continue;
+    }
+
     switch (projectile->type) {
       case PROJECTILE_TYPE_NONE:
         continue;
       case PROJECTILE_TYPE_ONE_HIT: {
         projectile->pos = Vector2Add(projectile->pos, Vector2Multiply(projectile->dir, (Vector2){vel, vel}));
-        switch(projectile->target) {
+        switch (projectile->target) {
           case PROJECTILE_TARGET_EMPTY:
             continue;
           case PROJECTILE_TARGET_ENEMY: {
             bool collided = false;
             for (u64 i = 0; i < enemy_buffer_size(); i++) {
               enemy_t* enemy = &enemy_buffer()[i];
+
+              if (projectile->hit_count >= projectile->max_hit_count)
+                break;
+
               if (enemy_colliding_with(enemy, projectile->pos)) {
                 collided = true;
                 int damage = 99;
@@ -46,6 +73,8 @@ void projectile_update(player_t* player) {
                   enemy->stats.hp = 0;
                 else
                   enemy->stats.hp -= damage;
+
+                projectile->hit_count++;
               }
             }
           }

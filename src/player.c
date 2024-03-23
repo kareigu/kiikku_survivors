@@ -71,6 +71,10 @@ void player_shoot(player_t* player) {
   projectile->dir = player->dir;
   projectile->pos = player->pos;
   projectile->vel = 8;
+  projectile->max_hit_count = 8;
+  projectile->hit_count = 0;
+  projectile->max_ttl = 10000.0f;
+  projectile->ttl = 0.0f;
   projectile->type = PROJECTILE_TYPE_ONE_HIT;
   projectile->target = PROJECTILE_TARGET_ENEMY;
   projectile->source_type = PROJECTILE_TARGET_PLAYER;

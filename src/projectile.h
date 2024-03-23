@@ -19,6 +19,10 @@ typedef struct {
   Vector2 pos;
   Vector2 dir;
   float vel;
+  u32 max_hit_count;
+  u32 hit_count;
+  float max_ttl;
+  float ttl;
   projectile_type_t type;
   projectile_target_t target;
   projectile_target_t source_type;
