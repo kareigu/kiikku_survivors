@@ -70,7 +70,7 @@ void enemy_handle_move(Vector2 player_pos) {
           if (j == i) continue;
 
           enemy_t* other = &s_enemy_buffer[j];
-          if (enemy_colliding_with(other, proposed_pos)) {
+          if (enemy_colliding_with(other, proposed_pos, 0.5f)) {
             colliding = true;
             break;
           }
@@ -89,8 +89,8 @@ void enemy_handle_move(Vector2 player_pos) {
   }
 }
 
-bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos) {
-  return CheckCollisionCircles(enemy->pos, 0.5f, other_pos, 0.5f);
+bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos, float other_width) {
+  return CheckCollisionCircles(enemy->pos, enemy->width, other_pos, other_width);
 }
 
 void enemy_draw(enemy_t* enemy) {

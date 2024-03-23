@@ -32,7 +32,6 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     pos.x -= vel;
   if (inputs & INPUT_RIGHT)
     pos.x += vel;
-  player->pos = pos;
 
   if (inputs & INPUT_AUTO_AIM && !(prev_inputs & INPUT_AUTO_AIM)) {
     TraceLog(LOG_DEBUG, "Toggling auto aim");
@@ -62,6 +61,7 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     player_shoot(player);
 
 
+  player->pos = pos;
   prev_inputs = inputs;
   return;
 }
@@ -70,6 +70,7 @@ void player_shoot(player_t* player) {
   projectile_t* projectile = projectile_create();
   projectile->dir = player->dir;
   projectile->pos = player->pos;
+  projectile->width = 0.25f;
   projectile->vel = 8;
   projectile->max_hit_count = 8;
   projectile->hit_count = 0;

@@ -67,7 +67,7 @@ void projectile_update(player_t* player) {
               if (projectile->hit_count >= projectile->max_hit_count)
                 break;
 
-              if (enemy_colliding_with(enemy, projectile->pos)) {
+              if (enemy_colliding_with(enemy, projectile->pos, projectile->width)) {
                 collided = true;
                 int damage = 99;
                 if (enemy->stats.hp - damage < 0)
