@@ -42,7 +42,7 @@ int main(void) {
     projectile_update(&player);
     enemy_update();
 
-    if (input_current() & CANCEL)
+    if (input_current() & INPUT_CANCEL)
       break;
 
     RenderTexture* viewport = viewport_get_current();

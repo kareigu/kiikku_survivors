@@ -4,8 +4,8 @@
 #include <raylib.h>
 
 typedef enum : u8 {
-  NONE = 0,
-  TEST = 255,
+  ENEMY_TYPE_NONE = 0,
+  ENEMY_TYPE_TEST = 255,
 } enemy_type_t;
 
 typedef struct {

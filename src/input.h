@@ -3,12 +3,12 @@
 #include "common.h"
 
 typedef enum : u8 {
-  UP = 1,
-  DOWN = 2,
-  LEFT = 4,
-  RIGHT = 8,
-  CANCEL = 16,
-  OK = 32,
+  INPUT_UP = 1,
+  INPUT_DOWN = 2,
+  INPUT_LEFT = 4,
+  INPUT_RIGHT = 8,
+  INPUT_CANCEL = 16,
+  INPUT_OK = 32,
 } inputs_t;
 
 void input_handle();

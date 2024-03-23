@@ -9,27 +9,27 @@ inputs_t input_current() {
 
 void input_handle() {
   if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W))
-    inputs |= UP;
+    inputs |= INPUT_UP;
   else
-    inputs &= ~UP;
+    inputs &= ~INPUT_UP;
   if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S))
-    inputs |= DOWN;
+    inputs |= INPUT_DOWN;
   else
-    inputs &= ~DOWN;
+    inputs &= ~INPUT_DOWN;
   if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))
-    inputs |= LEFT;
+    inputs |= INPUT_LEFT;
   else
-    inputs &= ~LEFT;
+    inputs &= ~INPUT_LEFT;
   if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))
-    inputs |= RIGHT;
+    inputs |= INPUT_RIGHT;
   else
-    inputs &= ~RIGHT;
+    inputs &= ~INPUT_RIGHT;
   if (IsKeyDown(KEY_ESCAPE))
-    inputs |= CANCEL;
+    inputs |= INPUT_CANCEL;
   else
-    inputs &= ~CANCEL;
+    inputs &= ~INPUT_CANCEL;
   if (IsKeyDown(KEY_ENTER))
-    inputs |= OK;
+    inputs |= INPUT_OK;
   else
-    inputs &= ~OK;
+    inputs &= ~INPUT_OK;
 }

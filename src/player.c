@@ -21,19 +21,19 @@ void player_handle_input(player_t* player, inputs_t inputs) {
   static inputs_t prev_inputs;
   float vel = player->stats.vel * GetFrameTime();
   Vector2 pos = player->pos;
-  if (inputs & UP)
+  if (inputs & INPUT_UP)
     pos.y -= vel;
-  if (inputs & DOWN)
+  if (inputs & INPUT_DOWN)
     pos.y += vel;
-  if (inputs & LEFT)
+  if (inputs & INPUT_LEFT)
     pos.x -= vel;
-  if (inputs & RIGHT)
+  if (inputs & INPUT_RIGHT)
     pos.x += vel;
 
   if (!Vector2Equals(pos, player->pos))
     player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
 
-  if (inputs & OK && !(prev_inputs & OK)) {
+  if (inputs & INPUT_OK && !(prev_inputs & INPUT_OK)) {
     projectile_t* projectile = projectile_create();
     projectile->dir = player->dir;
     projectile->pos = player->pos;
@@ -41,7 +41,7 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     projectile->type = PROJECTILE_TYPE_ONE_HIT;
     projectile->target = PROJECTILE_TARGET_ENEMY;
     projectile->source_type = PROJECTILE_TARGET_PLAYER;
-    projectile->source = (void*)player;
+    projectile->source = (void*) player;
   }
 
   player->pos = pos;
