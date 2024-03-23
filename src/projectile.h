@@ -18,6 +18,7 @@ typedef enum {
 typedef struct {
   Vector2 pos;
   Vector2 dir;
+  float width;
   float vel;
   u32 max_hit_count;
   u32 hit_count;

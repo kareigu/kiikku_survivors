@@ -22,6 +22,7 @@ void projectile_buffer_init() {
     s_projectile_buffer[i] = (projectile_t){{0, 0},
                                             {0, 0},
                                             0.0f,
+                                            0.0f,
                                             0,
                                             0,
                                             0.0f,
