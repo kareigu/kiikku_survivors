@@ -1,4 +1,5 @@
 #include "player.h"
+#include "enemy.h"
 #include "input.h"
 #include "projectile.h"
 #include "viewport.h"
@@ -14,7 +15,9 @@ player_t player_create() {
                   .vel = 4,
                   .hp = 6,
                   .mp = 10,
-          }};
+          },
+          .state = 0,
+  };
 }
 
 void player_handle_input(player_t* player, inputs_t inputs) {
@@ -29,9 +32,31 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     pos.x -= vel;
   if (inputs & INPUT_RIGHT)
     pos.x += vel;
+  player->pos = pos;
 
-  if (!Vector2Equals(pos, player->pos))
-    player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
+  if (inputs & INPUT_AUTO_AIM && !(prev_inputs & INPUT_AUTO_AIM)) {
+    TraceLog(LOG_DEBUG, "Toggling auto aim");
+    player->state ^= PLAYER_STATE_AUTO_AIM;
+  }
+
+  if (player->state & PLAYER_STATE_AUTO_AIM) {
+    Vector2 closest = player->pos;
+    float closest_dist = 0.0f;
+    for (u64 i = 0; i < enemy_buffer_size(); i++) {
+      if (enemy_buffer()[i].type == ENEMY_TYPE_NONE)
+        continue;
+      Vector2 candidate = enemy_buffer()[i].pos;
+      float candidate_dist = Vector2Distance(player->pos, candidate);
+      if (closest_dist == 0.0f || candidate_dist < closest_dist) {
+        closest = candidate;
+        closest_dist = candidate_dist;
+      }
+    }
+    player->dir = Vector2Normalize(Vector2Subtract(closest, player->pos));
+  } else {
+    if (!Vector2Equals(pos, player->pos))
+      player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
+  }
 
   if (inputs & INPUT_OK && !(prev_inputs & INPUT_OK)) {
     projectile_t* projectile = projectile_create();
@@ -44,7 +69,6 @@ void player_handle_input(player_t* player, inputs_t inputs) {
     projectile->source = (void*) player;
   }
 
-  player->pos = pos;
 
   prev_inputs = inputs;
   return;

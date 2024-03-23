@@ -32,4 +32,8 @@ void input_handle() {
     inputs |= INPUT_OK;
   else
     inputs &= ~INPUT_OK;
+  if (IsKeyDown(KEY_R))
+    inputs |= INPUT_AUTO_AIM;
+  else
+    inputs &= ~INPUT_AUTO_AIM;
 }

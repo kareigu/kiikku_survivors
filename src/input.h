@@ -9,6 +9,7 @@ typedef enum : u8 {
   INPUT_RIGHT = 8,
   INPUT_CANCEL = 16,
   INPUT_OK = 32,
+  INPUT_AUTO_AIM = 64,
 } inputs_t;
 
 void input_handle();
