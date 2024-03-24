@@ -17,4 +17,11 @@ typedef struct {
   u8 mp;
 } stats_t;
 
+typedef enum {
+  MAIN_STATE_MAIN_MENU,
+  MAIN_STATE_LOADING,
+  MAIN_STATE_GAME,
+} main_state_t;
+
+
 #endif

@@ -1,6 +1,7 @@
 #include "common.h"
 #include "enemy.h"
 #include "game.h"
+#include "menus/loading_screen.h"
 #include "menus/main_menu.h"
 #include "viewport.h"
 #include <assert.h>
@@ -10,12 +11,6 @@
 
 #define RESOLUTION_X 800
 #define RESOLUTION_Y 600
-
-typedef enum {
-  MAIN_STATE_MAIN_MENU,
-  MAIN_STATE_LOADING,
-  MAIN_STATE_GAME,
-} main_state_t;
 
 int main(void) {
   InitWindow(RESOLUTION_X, RESOLUTION_Y, "kiikku survivors");
@@ -33,7 +28,7 @@ int main(void) {
 #endif
 
   main_state_t main_state = MAIN_STATE_MAIN_MENU;
-  game_init();
+  main_state_t target_main_state = MAIN_STATE_MAIN_MENU;
 
   bool should_close = false;
 
@@ -44,21 +39,24 @@ int main(void) {
           case MAIN_MENU_NOOP:
             continue;
           case MAIN_MENU_START_GAME:
-            main_state = MAIN_STATE_GAME;
+            target_main_state = MAIN_STATE_GAME;
+            main_state = MAIN_STATE_LOADING;
             continue;
           case MAIN_MENU_EXIT:
             should_close = true;
             continue;
         }
       }
-      case MAIN_STATE_LOADING:
-        assert(false);
+      case MAIN_STATE_LOADING: {
+        loading_screen(&main_state, target_main_state, (Vector2){RESOLUTION_X, RESOLUTION_Y});
+      }
       case MAIN_STATE_GAME: {
         switch (game_loop((Vector2){RESOLUTION_X, RESOLUTION_Y})) {
           case GAME_LOOP_STATUS_NOOP:
             continue;
           case GAME_LOOP_STATUS_EXIT:
-            should_close = true;
+            target_main_state = MAIN_STATE_MAIN_MENU;
+            main_state = MAIN_STATE_LOADING;
             continue;
         }
       }
