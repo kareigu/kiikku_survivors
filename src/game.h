@@ -8,6 +8,6 @@ typedef enum {
 } game_loop_status_t;
 
 void game_init();
-game_loop_status_t game_loop(Vector2 resolution);
+game_loop_status_t game_loop();
 
 #endif

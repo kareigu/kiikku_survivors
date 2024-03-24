@@ -1,9 +1,10 @@
 #include "main_menu.h"
 #include "../input.h"
+#include "../settings.h"
 #include "../viewport.h"
 #include <raylib.h>
 
-main_menu_status_t main_menu(Vector2 resolution) {
+main_menu_status_t main_menu() {
   input_handle();
   inputs_t inputs = input_current();
 
@@ -33,8 +34,10 @@ main_menu_status_t main_menu(Vector2 resolution) {
 
   EndTextureMode();
 
+
+  const Vector2* resolution = settings_resolution();
   BeginDrawing();
-  viewport_draw_scaled((Rectangle){0, 0, resolution.x, resolution.y});
+  viewport_draw_scaled((Rectangle){0, 0, resolution->x, resolution->y});
   EndDrawing();
 
   return MAIN_MENU_NOOP;

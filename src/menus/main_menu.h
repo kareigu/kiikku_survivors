@@ -8,6 +8,6 @@ typedef enum {
   MAIN_MENU_EXIT,
 } main_menu_status_t;
 
-main_menu_status_t main_menu(Vector2 resolution);
+main_menu_status_t main_menu();
 
 #endif

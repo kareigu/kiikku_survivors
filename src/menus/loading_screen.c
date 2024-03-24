@@ -1,10 +1,11 @@
 #include "loading_screen.h"
 #include "../game.h"
+#include "../settings.h"
 #include "../viewport.h"
 #include <assert.h>
 #include <raylib.h>
 
-void loading_screen(main_state_t* main_state, main_state_t target_main_state, Vector2 resolution) {
+void loading_screen(main_state_t* main_state, main_state_t target_main_state) {
   viewport_new_frame();
   RenderTexture* viewport = viewport_get_current();
 
@@ -18,8 +19,9 @@ void loading_screen(main_state_t* main_state, main_state_t target_main_state, Ve
 
   EndTextureMode();
 
+  const Vector2* resolution = settings_resolution();
   BeginDrawing();
-  viewport_draw_scaled((Rectangle){0, 0, resolution.x, resolution.y});
+  viewport_draw_scaled((Rectangle){0, 0, resolution->x, resolution->y});
   EndDrawing();
 
   switch (target_main_state) {

@@ -4,6 +4,7 @@
 #include "player.h"
 #include "projectile.h"
 #include "renderer.h"
+#include "settings.h"
 #include "viewport.h"
 #include <raylib.h>
 
@@ -15,7 +16,7 @@ void game_init() {
   enemy_spawn_wave(GetRandomValue(50, 200));
 }
 
-game_loop_status_t game_loop(Vector2 resolution) {
+game_loop_status_t game_loop() {
   viewport_new_frame();
   debug_update_data();
   input_handle();
@@ -35,9 +36,10 @@ game_loop_status_t game_loop(Vector2 resolution) {
                         viewport_get_hud(),
                 });
 
+  const Vector2* resolution = settings_resolution();
   BeginDrawing();
   ClearBackground(BLACK);
-  viewport_draw_scaled((Rectangle){.x = 0, .y = 0, .width = resolution.x, .height = resolution.y});
+  viewport_draw_scaled((Rectangle){.x = 0, .y = 0, .width = resolution->x, .height = resolution->y});
   debug_draw_display();
   EndDrawing();
 

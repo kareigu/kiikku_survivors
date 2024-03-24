@@ -3,18 +3,16 @@
 #include "game.h"
 #include "menus/loading_screen.h"
 #include "menus/main_menu.h"
+#include "settings.h"
 #include "viewport.h"
-#include <assert.h>
 #include <raylib.h>
 #include <stdbool.h>
 #include <time.h>
 
-#define RESOLUTION_X 800
-#define RESOLUTION_Y 600
-
 int main(void) {
-  InitWindow(RESOLUTION_X, RESOLUTION_Y, "kiikku survivors");
-  TraceLog(LOG_INFO, "Window opened { x = %d, y = %d }", RESOLUTION_X, RESOLUTION_Y);
+  const Vector2* resolution = settings_resolution();
+  InitWindow(resolution->x, resolution->y, "kiikku survivors");
+  TraceLog(LOG_INFO, "Window opened { x = %d, y = %d }", resolution->x, resolution->y);
 
 
   viewport_init();
@@ -35,7 +33,7 @@ int main(void) {
   while (!should_close) {
     switch (main_state) {
       case MAIN_STATE_MAIN_MENU: {
-        switch (main_menu((Vector2){RESOLUTION_X, RESOLUTION_Y})) {
+        switch (main_menu()) {
           case MAIN_MENU_NOOP:
             continue;
           case MAIN_MENU_START_GAME:
@@ -48,10 +46,10 @@ int main(void) {
         }
       }
       case MAIN_STATE_LOADING: {
-        loading_screen(&main_state, target_main_state, (Vector2){RESOLUTION_X, RESOLUTION_Y});
+        loading_screen(&main_state, target_main_state);
       }
       case MAIN_STATE_GAME: {
-        switch (game_loop((Vector2){RESOLUTION_X, RESOLUTION_Y})) {
+        switch (game_loop()) {
           case GAME_LOOP_STATUS_NOOP:
             continue;
           case GAME_LOOP_STATUS_EXIT:
