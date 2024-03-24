@@ -37,6 +37,7 @@ main_menu_status_t main_menu() {
 
   const Vector2* resolution = settings_resolution();
   BeginDrawing();
+  ClearBackground(BLACK);
   viewport_draw_scaled((Rectangle){0, 0, resolution->x, resolution->y});
   EndDrawing();
 

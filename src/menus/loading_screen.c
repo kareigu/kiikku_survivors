@@ -21,6 +21,7 @@ void loading_screen(main_state_t* main_state, main_state_t target_main_state) {
 
   const Vector2* resolution = settings_resolution();
   BeginDrawing();
+  ClearBackground(BLACK);
   viewport_draw_scaled((Rectangle){0, 0, resolution->x, resolution->y});
   EndDrawing();
 
