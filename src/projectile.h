@@ -1,5 +1,5 @@
-#ifndef COQUE_PROJECTILE_H
-#define COQUE_PROJECTILE_H
+#ifndef KIIKKU_PROJECTILE_H
+#define KIIKKU_PROJECTILE_H
 #include "common.h"
 #include "player.h"
 #include <raylib.h>

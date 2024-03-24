@@ -1,5 +1,5 @@
-#ifndef COQUE_RENDERER_H
-#define COQUE_RENDERER_H
+#ifndef KIIKKU_RENDERER_H
+#define KIIKKU_RENDERER_H
 #include "player.h"
 #include <raylib.h>
 

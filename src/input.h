@@ -1,5 +1,5 @@
-#ifndef COQUE_INPUT_H
-#define COQUE_INPUT_H
+#ifndef KIIKKU_INPUT_H
+#define KIIKKU_INPUT_H
 #include "common.h"
 
 typedef enum : u8 {

@@ -1,5 +1,5 @@
-#ifndef COQUE_VIEWPORT_H
-#define COQUE_VIEWPORT_H
+#ifndef KIIKKU_VIEWPORT_H
+#define KIIKKU_VIEWPORT_H
 #include "common.h"
 #include <raylib.h>
 

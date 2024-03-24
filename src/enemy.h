@@ -1,5 +1,5 @@
-#ifndef COQUE_ENEMY_H
-#define COQUE_ENEMY_H
+#ifndef KIIKKU_ENEMY_H
+#define KIIKKU_ENEMY_H
 #include "common.h"
 #include <raylib.h>
 

@@ -1,5 +1,5 @@
-#ifndef COQUE_COMMON_H
-#define COQUE_COMMON_H
+#ifndef KIIKKU_COMMON_H
+#define KIIKKU_COMMON_H
 
 #define u8 unsigned char
 #define i8 char

@@ -1,5 +1,5 @@
-#ifndef COQUE_PLAYER_H
-#define COQUE_PLAYER_H
+#ifndef KIIKKU_PLAYER_H
+#define KIIKKU_PLAYER_H
 #include "common.h"
 #include "input.h"
 #include <raylib.h>
