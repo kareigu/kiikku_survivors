@@ -1,6 +1,7 @@
 #include "common.h"
 #include "enemy.h"
 #include "game.h"
+#include "menus/main_menu.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
@@ -31,14 +32,25 @@ int main(void) {
   SetTraceLogLevel(LOG_DEBUG);
 #endif
 
-  main_state_t main_state = MAIN_STATE_GAME;
+  main_state_t main_state = MAIN_STATE_MAIN_MENU;
   game_init();
 
   bool should_close = false;
 
   while (!should_close) {
     switch (main_state) {
-      case MAIN_STATE_MAIN_MENU:
+      case MAIN_STATE_MAIN_MENU: {
+        switch (main_menu((Vector2){RESOLUTION_X, RESOLUTION_Y})) {
+          case MAIN_MENU_NOOP:
+            continue;
+          case MAIN_MENU_START_GAME:
+            main_state = MAIN_STATE_GAME;
+            continue;
+          case MAIN_MENU_EXIT:
+            should_close = true;
+            continue;
+        }
+      }
       case MAIN_STATE_LOADING:
         assert(false);
       case MAIN_STATE_GAME: {
@@ -47,7 +59,7 @@ int main(void) {
             continue;
           case GAME_LOOP_STATUS_EXIT:
             should_close = true;
-            break;
+            continue;
         }
       }
     }

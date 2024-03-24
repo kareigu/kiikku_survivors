@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
     src/enemy.c
     src/projectile.c
     src/game.c
+    src/menus/main_menu.c
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
