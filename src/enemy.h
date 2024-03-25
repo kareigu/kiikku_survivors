@@ -20,7 +20,7 @@ u64 enemy_buffer_size();
 
 void enemy_init();
 void enemy_update();
-void enemy_spawn_wave(u64 amount);
+void enemy_spawn_wave(Vector2 player_move, u64 amount);
 void enemy_handle_move(Vector2 player_pos);
 bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos, float other_width);
 

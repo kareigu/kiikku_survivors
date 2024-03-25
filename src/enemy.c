@@ -2,6 +2,7 @@
 #include "common.h"
 #include "viewport.h"
 #include <assert.h>
+#include <math.h>
 #include <raylib.h>
 #include <raymath.h>
 #include <stdbool.h>
@@ -47,11 +48,17 @@ void enemy_create_buffer() {
   TraceLog(LOG_INFO, "enemy buffer initialised to %d", s_enemy_buffer_size);
 }
 
-void enemy_spawn_wave(u64 amount) {
+void enemy_spawn_wave(Vector2 player_pos, u64 amount) {
   for (u64 i = 0; i < amount; i++) {
     memcpy(&s_enemy_buffer[i], &enemies[ENEMY_TYPE_TEST], sizeof(enemy_t));
-    s_enemy_buffer[i].pos.x = GetRandomValue(-10, 10);
-    s_enemy_buffer[i].pos.y = GetRandomValue(-10, 10);
+    float spawn_range = GetRandomValue(25, 35);
+    double r = spawn_range * sqrt(GetRandomValue(500, 1000) / 1000.0);
+    double theta = (GetRandomValue(0, 1000) / 1000.0) * 2 * PI;
+
+    int offset_x = player_pos.x + r * cos(theta);
+    int offset_y = player_pos.y + r * sin(theta);
+    Vector2 spawn_point = {offset_x, offset_y};
+    s_enemy_buffer[i].pos = spawn_point;
   }
 }
 

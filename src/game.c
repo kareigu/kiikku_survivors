@@ -13,7 +13,7 @@ static player_t player;
 void game_init() {
   player = player_create();
   projectile_buffer_init();
-  enemy_spawn_wave(GetRandomValue(50, 200));
+  enemy_spawn_wave(player.pos, GetRandomValue(50, 200));
 }
 
 game_loop_status_t game_loop() {
