@@ -51,7 +51,16 @@ void player_handle_input(player_t* player, inputs_t inputs) {
         closest_dist = candidate_dist;
       }
     }
+    Vector2 old_dir = player->dir;
     player->dir = Vector2Normalize(Vector2Subtract(closest, player->pos));
+
+    if (Vector2Equals(player->dir, (Vector2){0, 0})) {
+      if (!Vector2Equals(pos, player->pos))
+        player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
+      else
+        player->dir = old_dir;
+    }
+
   } else {
     if (!Vector2Equals(pos, player->pos))
       player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
