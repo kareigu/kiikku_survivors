@@ -17,7 +17,6 @@ void game_init() {
 }
 
 game_loop_status_t game_loop() {
-  viewport_new_frame();
   debug_update_data();
   input_handle();
   player_handle_input(&player, input_current());
@@ -29,7 +28,7 @@ game_loop_status_t game_loop() {
   if (input_current() & INPUT_CANCEL)
     return GAME_LOOP_STATUS_EXIT;
 
-  RenderTexture* viewport = viewport_get_current();
+  RenderTexture* viewport = viewport_get();
   renderer_draw(viewport,
                 (renderer_data_t){
                         &player,

@@ -14,8 +14,7 @@ main_menu_status_t main_menu() {
   if (inputs & INPUT_OK)
     return MAIN_MENU_START_GAME;
 
-  viewport_new_frame();
-  RenderTexture* viewport = viewport_get_current();
+  RenderTexture* viewport = viewport_get();
 
   BeginTextureMode(*viewport);
   ClearBackground(BLACK);

@@ -6,8 +6,7 @@
 #include <raylib.h>
 
 void loading_screen(main_state_t* main_state, main_state_t target_main_state) {
-  viewport_new_frame();
-  RenderTexture* viewport = viewport_get_current();
+  RenderTexture* viewport = viewport_get();
 
   BeginTextureMode(*viewport);
 
