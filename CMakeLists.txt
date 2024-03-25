@@ -27,7 +27,12 @@ set(PROJECT_SOURCES
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES C_STANDARD 17)
+set_target_properties(
+    ${PROJECT_NAME}
+    PROPERTIES
+        C_STANDARD
+            17
+)
 
 add_project_compile_flags(${PROJECT_NAME})
 link_project_dependencies(${PROJECT_NAME})
@@ -44,16 +49,19 @@ if(NINJA_MULTICONFIG)
                 "${CMAKE_CURRENT_BINARY_DIR}/${CONFIG}/${PROJECT_NAME}"
             USES_TERMINAL
             VERBATIM
-            DEPENDS ${PROJECT_NAME}:$<CONFIG>
+            DEPENDS
+                ${PROJECT_NAME}:$<CONFIG>
         )
     endforeach()
 endif()
 add_custom_target(
     run
-    COMMAND ${CMAKE_COMMAND} -E env "$<TARGET_FILE:${PROJECT_NAME}>"
+    COMMAND
+        ${CMAKE_COMMAND} -E env "$<TARGET_FILE:${PROJECT_NAME}>"
     USES_TERMINAL
     VERBATIM
-    DEPENDS ${PROJECT_NAME}:$<CONFIG>
+    DEPENDS
+        ${PROJECT_NAME}:$<CONFIG>
 )
 
 if(NINJA_MULTICONFIG)
