@@ -1,6 +1,7 @@
 #include "projectile.h"
 #include "common.h"
 #include "enemy.h"
+#include "player.h"
 #include "viewport.h"
 #include <assert.h>
 #include <raylib.h>
@@ -33,13 +34,14 @@ void projectile_buffer_init() {
                                             nullptr};
 }
 
+void projectile_update_one_hit(projectile_t* projectile, player_t* player);
+
 void projectile_update(player_t* player) {
   float delta = GetFrameTime();
   for (u64 i = 0; i < s_projectile_buffer_size; i++) {
     projectile_t* projectile = &s_projectile_buffer[i];
 
     projectile->ttl += delta * 1000;
-    float vel = projectile->vel * delta;
 
     if (projectile->hit_count >= projectile->max_hit_count) {
       projectile->type = PROJECTILE_TYPE_NONE;
@@ -54,36 +56,9 @@ void projectile_update(player_t* player) {
     switch (projectile->type) {
       case PROJECTILE_TYPE_NONE:
         continue;
-      case PROJECTILE_TYPE_ONE_HIT: {
-        projectile->pos = Vector2Add(projectile->pos, Vector2Multiply(projectile->dir, (Vector2){vel, vel}));
-        switch (projectile->target) {
-          case PROJECTILE_TARGET_EMPTY:
-            continue;
-          case PROJECTILE_TARGET_ENEMY: {
-            bool collided = false;
-            for (u64 i = 0; i < enemy_buffer_size(); i++) {
-              enemy_t* enemy = &enemy_buffer()[i];
-
-              if (projectile->hit_count >= projectile->max_hit_count)
-                break;
-
-              if (enemy_colliding_with(enemy, projectile->pos, projectile->width)) {
-                collided = true;
-                int damage = 99;
-                if (enemy->stats.hp - damage < 0)
-                  enemy->stats.hp = 0;
-                else
-                  enemy->stats.hp -= damage;
-
-                projectile->hit_count++;
-              }
-            }
-          }
-          case PROJECTILE_TARGET_PLAYER: {
-            continue;
-          }
-        }
-      }
+      case PROJECTILE_TYPE_ONE_HIT:
+        projectile_update_one_hit(projectile, player);
+        break;
     }
   }
 }
@@ -122,6 +97,40 @@ void projectile_draw(projectile_t* projectile, Vector2 viewport_size) {
       return;
     case PROJECTILE_TYPE_ONE_HIT: {
       DrawRectangleRounded((Rectangle){.x = x, .y = y, .width = (float) VIEWPORT_TILE / 2, .height = (float) VIEWPORT_TILE / 2}, 5.0f, 4, YELLOW);
+    }
+  }
+}
+
+void projectile_update_one_hit(projectile_t* projectile, player_t* player) {
+  float vel = projectile->vel * GetFrameTime();
+  projectile->pos = Vector2Add(projectile->pos, Vector2Multiply(projectile->dir, (Vector2){vel, vel}));
+  switch (projectile->target) {
+    case PROJECTILE_TARGET_EMPTY:
+      return;
+    case PROJECTILE_TARGET_ENEMY: {
+      for (u64 i = 0; i < enemy_buffer_size(); i++) {
+        enemy_t* enemy = &enemy_buffer()[i];
+
+        if (projectile->hit_count >= projectile->max_hit_count)
+          return;
+
+        if (enemy->type == ENEMY_TYPE_NONE)
+          continue;
+
+
+        if (enemy_colliding_with(enemy, projectile->pos, projectile->width)) {
+          int damage = 99;
+          if (enemy->stats.hp - damage < 0)
+            enemy->stats.hp = 0;
+          else
+            enemy->stats.hp -= damage;
+
+          projectile->hit_count++;
+        }
+      }
+    }
+    case PROJECTILE_TARGET_PLAYER: {
+      return;
     }
   }
 }
