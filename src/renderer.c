@@ -57,7 +57,7 @@ void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data
   DrawTexturePro(
           hud_viewport->texture,
           (Rectangle){.x = 0, .y = 0, .width = hud_viewport->texture.width, .height = -hud_viewport->texture.height},
-          (Rectangle){.x = hud_viewport->texture.width % VIEWPORT_TILE,
+          (Rectangle){.x = hud_viewport->texture.width % VIEWPORT_TILE,// NOLINT(bugprone-integer-division): Happens due to macro expansion
                       .y = target_viewport->texture.height - 3.0f * VIEWPORT_TILE,
                       .width = hud_viewport->texture.width,
                       .height = hud_viewport->texture.height},
