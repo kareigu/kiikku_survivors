@@ -50,6 +50,9 @@ void enemy_create_buffer() {
 
 void enemy_spawn_wave(Vector2 player_pos, u64 amount) {
   for (u64 i = 0; i < amount; i++) {
+    if (s_enemy_buffer[i].type != ENEMY_TYPE_NONE)
+      continue;
+
     memcpy(&s_enemy_buffer[i], &enemies[ENEMY_TYPE_TEST], sizeof(enemy_t));
     float spawn_range = GetRandomValue(25, 35);
     double r = spawn_range * sqrt(GetRandomValue(500, 1000) / 1000.0);
