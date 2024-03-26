@@ -1,6 +1,7 @@
 #ifndef KIIKKU_ENEMY_H
 #define KIIKKU_ENEMY_H
 #include "common.h"
+#include "game.h"
 #include <raylib.h>
 
 typedef enum : u8 {
@@ -19,7 +20,7 @@ enemy_t* enemy_buffer();
 u64 enemy_buffer_size();
 
 void enemy_init();
-void enemy_update();
+void enemy_update(game_state_stats_t* stats);
 void enemy_spawn_wave(Vector2 player_move, u64 amount);
 void enemy_handle_move(Vector2 player_pos);
 bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos, float other_width);

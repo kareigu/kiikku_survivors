@@ -14,8 +14,8 @@ void renderer_hud_draw(RenderTexture* target_viewport, const game_state_t* game_
   int width = target_viewport->texture.width;
   int height = target_viewport->texture.height;
 
-  char stats[32];
-  sprintf(stats, "| HP: %d | MP: %d |", player->stats.hp, player->stats.mp);
+  char stats[64];
+  sprintf(stats, "| HP: %d | MP: %d | %llu kills |", game_state->player.stats.hp, game_state->player.stats.mp, game_state->stats.kills);
 
   BeginTextureMode(*target_viewport);
 

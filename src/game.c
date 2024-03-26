@@ -12,6 +12,9 @@ static game_state_t game_state = {
         .player = {},
         .time_between_waves = 15,
         .time_since_prev_wave = 0,
+        .stats = {
+                .kills = 0,
+        },
 };
 
 void game_init() {
@@ -31,8 +34,8 @@ game_loop_status_t game_loop() {
   player_handle_input(&game_state.player, input_current());
   enemy_handle_move(game_state.player.pos);
 
-  enemy_update();
   projectile_update(&game_state.player);
+  enemy_update(&game_state.stats);
 
   if (input_current() & INPUT_CANCEL)
     return GAME_LOOP_STATUS_EXIT;

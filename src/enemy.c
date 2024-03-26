@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "common.h"
+#include "game.h"
 #include "viewport.h"
 #include <assert.h>
 #include <math.h>
@@ -21,12 +22,13 @@ void enemy_init() {
   assert(s_enemy_buffer);
 }
 
-void enemy_update() {
+void enemy_update(game_state_stats_t* stats) {
   for (u64 i = 0; i < s_enemy_buffer_size; i++) {
     enemy_t* enemy = &s_enemy_buffer[i];
     if (enemy->type == ENEMY_TYPE_NONE) continue;
     if (enemy->stats.hp == 0) {
       enemy->type = ENEMY_TYPE_NONE;
+      stats->kills += 1;
       continue;
     }
   }
