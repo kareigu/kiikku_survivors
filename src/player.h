@@ -18,5 +18,5 @@ typedef struct {
 player_t player_create();
 void player_handle_input(player_t* player, inputs_t inputs);
 void player_shoot(player_t* player);
-void player_draw(player_t* player, Vector2 viewport_size);
+void player_draw(const player_t* player, Vector2 viewport_size);
 #endif

@@ -91,7 +91,7 @@ void player_shoot(player_t* player) {
   projectile->source = (void*) player;
 }
 
-void player_draw(player_t* player, Vector2 viewport_size) {
+void player_draw(const player_t* player, Vector2 viewport_size) {
   assert(player);
   int x = (player->pos.x * VIEWPORT_TILE + viewport_size.x / 2);
   int y = (player->pos.y * VIEWPORT_TILE + viewport_size.y / 2);

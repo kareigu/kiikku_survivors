@@ -1,11 +1,11 @@
 #ifndef KIIKKU_RENDERER_H
 #define KIIKKU_RENDERER_H
-#include "player.h"
+#include "game.h"
 #include <raylib.h>
 
 typedef struct {
-  player_t* player;
   RenderTexture* hud_viewport;
+  const game_state_t* game_state;
 } renderer_data_t;
 
 void renderer_init();

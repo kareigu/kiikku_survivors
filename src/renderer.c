@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "enemy.h"
+#include "game.h"
 #include "player.h"
 #include "projectile.h"
 #include "viewport.h"
@@ -7,9 +8,9 @@
 #include <raylib.h>
 #include <stdio.h>
 
-void renderer_hud_draw(RenderTexture* target_viewport, player_t* player) {
+void renderer_hud_draw(RenderTexture* target_viewport, const game_state_t* game_state) {
   assert(target_viewport);
-  assert(player);
+  assert(game_state);
   int width = target_viewport->texture.width;
   int height = target_viewport->texture.height;
 
@@ -28,14 +29,15 @@ void renderer_hud_draw(RenderTexture* target_viewport, player_t* player) {
 }
 
 void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data) {
-  player_t* player = renderer_data.player;
+  const game_state_t* game_state = renderer_data.game_state;
+  const player_t* player = &game_state->player;
   RenderTexture* hud_viewport = renderer_data.hud_viewport;
 
   Vector2 viewport_size = {target_viewport->texture.width, target_viewport->texture.height};
   int center_x = viewport_size.x / 2;
   int center_y = viewport_size.y / 2;
 
-  renderer_hud_draw(hud_viewport, player);
+  renderer_hud_draw(hud_viewport, game_state);
 
   BeginTextureMode(*target_viewport);
 
