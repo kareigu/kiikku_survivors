@@ -1,4 +1,5 @@
 #include "player.h"
+#include "common.h"
 #include "enemy.h"
 #include "input.h"
 #include "projectile.h"
@@ -18,6 +19,8 @@ player_t player_create() {
           },
           .state = 0,
           .weapon_state = player_weapon_create(),
+          .items = nullptr,
+          .items_count = 0,
   };
 }
 
@@ -107,6 +110,12 @@ void player_shoot(player_t* player) {
   projectile->target = PROJECTILE_TARGET_ENEMY;
   projectile->source_type = PROJECTILE_TARGET_PLAYER;
   projectile->source = (void*) player;
+}
+
+void player_add_item(player_t* player, item_t item) {
+  player->items = MemRealloc(player->items, player->items_count++);
+  player->items[player->items_count - 1] = item;
+  TraceLog(LOG_DEBUG, "Added item %d", item.type);
 }
 
 void player_draw(const player_t* player) {
