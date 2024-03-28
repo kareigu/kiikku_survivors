@@ -7,9 +7,11 @@
 #include "settings.h"
 #include "viewport.h"
 #include <raylib.h>
+#include <raymath.h>
 
 static game_state_t game_state = {
         .player = {},
+        .camera = {.offset = {0, 0}, .target = {0, 0}, .rotation = 0, .zoom = 1},
         .time_between_waves = 15,
         .time_since_prev_wave = 0,
         .stats = {
@@ -19,6 +21,7 @@ static game_state_t game_state = {
 
 void game_init() {
   game_state.player = player_create();
+  game_state.camera.target = Vector2Multiply(game_state.player.pos, (Vector2){(float) VIEWPORT_TILE, (float) VIEWPORT_TILE});
   projectile_buffer_init();
   enemy_spawn_wave(game_state.player.pos, GetRandomValue(50, 200));
 }
@@ -26,6 +29,10 @@ void game_init() {
 void update_game_state() {
   float delta = GetFrameTime();
   game_state.time_since_prev_wave += delta;
+  game_state.camera.target = Vector2Multiply(game_state.player.pos, (Vector2){(float) VIEWPORT_TILE, (float) VIEWPORT_TILE});
+  float viewport_x = viewport_get()->texture.width;
+  float viewport_y = viewport_get()->texture.height;
+  game_state.camera.offset = (Vector2){viewport_x / 2, viewport_y / 2};
 }
 
 game_loop_status_t game_loop() {

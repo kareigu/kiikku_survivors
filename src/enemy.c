@@ -107,8 +107,8 @@ bool enemy_colliding_with(enemy_t* enemy, Vector2 other_pos, float other_width) 
 
 void enemy_draw(enemy_t* enemy) {
   assert(enemy);
-  int x = enemy->pos.x * VIEWPORT_TILE + VIEWPORT_X / 2.0f;
-  int y = enemy->pos.y * VIEWPORT_TILE + VIEWPORT_Y / 2.0f;
+  int x = enemy->pos.x * VIEWPORT_TILE;
+  int y = enemy->pos.y * VIEWPORT_TILE;
   switch (enemy->type) {
     case ENEMY_TYPE_NONE:
       return;

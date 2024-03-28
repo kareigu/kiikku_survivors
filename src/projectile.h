@@ -34,7 +34,7 @@ void projectile_buffer_init();
 void projectile_update(player_t* player);
 
 projectile_t* projectile_create();
-void projectile_draw(projectile_t* projectile, Vector2 viewport_size);
+void projectile_draw(projectile_t* projectile);
 
 projectile_t* projectile_buffer();
 u64 projectile_buffer_size();

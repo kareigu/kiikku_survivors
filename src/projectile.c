@@ -88,10 +88,10 @@ projectile_t* projectile_create() {
   assert(false);
 }
 
-void projectile_draw(projectile_t* projectile, Vector2 viewport_size) {
+void projectile_draw(projectile_t* projectile) {
   assert(projectile);
-  int x = (projectile->pos.x * VIEWPORT_TILE + viewport_size.x / 2);
-  int y = (projectile->pos.y * VIEWPORT_TILE + viewport_size.y / 2);
+  int x = (projectile->pos.x * VIEWPORT_TILE);
+  int y = (projectile->pos.y * VIEWPORT_TILE);
   switch (projectile->type) {
     case PROJECTILE_TYPE_NONE:
       return;

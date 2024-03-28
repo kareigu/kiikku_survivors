@@ -15,6 +15,7 @@ typedef struct {
 
 typedef struct {
   player_t player;
+  Camera2D camera;
   float time_since_prev_wave;
   float time_between_waves;
   game_state_stats_t stats;

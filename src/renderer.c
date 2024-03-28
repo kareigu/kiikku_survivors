@@ -40,6 +40,7 @@ void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data
   renderer_hud_draw(hud_viewport, game_state);
 
   BeginTextureMode(*target_viewport);
+  BeginMode2D(game_state->camera);
 
   ClearBackground(GRAY);
   DrawRectangleRounded((Rectangle){.x = center_x + (int) GetTime() % 5, .y = center_y + 20, .width = (float) VIEWPORT_TILE, .height = (float) VIEWPORT_TILE}, 4.0f, 4, RED);
@@ -48,11 +49,12 @@ void renderer_draw(RenderTexture* target_viewport, renderer_data_t renderer_data
     enemy_draw(&enemy_buffer()[i]);
   }
 
-  player_draw(player, viewport_size);
+  player_draw(player);
 
   for (u64 i = 0; i < projectile_buffer_size(); i++) {
-    projectile_draw(&projectile_buffer()[i], viewport_size);
+    projectile_draw(&projectile_buffer()[i]);
   }
+  EndMode2D();
 
   DrawTexturePro(
           hud_viewport->texture,
