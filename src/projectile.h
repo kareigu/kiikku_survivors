@@ -7,6 +7,7 @@
 typedef enum {
   PROJECTILE_TYPE_NONE,
   PROJECTILE_TYPE_ONE_HIT,
+  PROJECTILE_TYPE_WOBBLER,
 } projectile_type_t;
 
 typedef enum {
