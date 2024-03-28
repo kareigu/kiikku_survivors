@@ -13,10 +13,13 @@ typedef struct {
   Vector2 dir;
   stats_t stats;
   player_state_t state;
+  float shot_interval;
+  float time_since_shot;
 } player_t;
 
 player_t player_create();
 void player_handle_input(player_t* player, inputs_t inputs);
+void player_update(player_t* player);
 void player_shoot(player_t* player);
 void player_draw(const player_t* player);
 #endif

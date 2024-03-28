@@ -41,6 +41,7 @@ game_loop_status_t game_loop() {
   player_handle_input(&game_state.player, input_current());
   enemy_handle_move(game_state.player.pos);
 
+  player_update(&game_state.player);
   projectile_update(&game_state.player);
   enemy_update(&game_state.stats);
 

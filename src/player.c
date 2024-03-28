@@ -17,6 +17,8 @@ player_t player_create() {
                   .mp = 10,
           },
           .state = 0,
+          .shot_interval = 0.250f,
+          .time_since_shot = 0.0f,
   };
 }
 
@@ -66,13 +68,19 @@ void player_handle_input(player_t* player, inputs_t inputs) {
       player->dir = Vector2Normalize(Vector2Subtract(pos, player->pos));
   }
 
-  if (inputs & INPUT_OK && !(prev_inputs & INPUT_OK))
-    player_shoot(player);
-
-
   player->pos = pos;
   prev_inputs = inputs;
   return;
+}
+
+void player_update(player_t* player) {
+  float delta = GetFrameTime();
+  player->time_since_shot += delta;
+
+  if (player->time_since_shot >= player->shot_interval) {
+    player_shoot(player);
+    player->time_since_shot = 0;
+  }
 }
 
 void player_shoot(player_t* player) {
