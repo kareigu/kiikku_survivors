@@ -11,6 +11,7 @@ typedef enum : u8 {
 typedef struct {
   float shot_interval;
   float time_since_shot;
+  float max_target_range;
 } player_weapon_state_t;
 
 typedef struct {

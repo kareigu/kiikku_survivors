@@ -25,6 +25,7 @@ player_weapon_state_t player_weapon_create() {
   return (player_weapon_state_t){
           .shot_interval = 0.250f,
           .time_since_shot = 0.0f,
+          .max_target_range = 10.0f,
   };
 }
 
@@ -55,6 +56,9 @@ void player_handle_input(player_t* player, inputs_t inputs) {
       Vector2 candidate = enemy_buffer()[i].pos;
       float candidate_dist = Vector2Distance(player->pos, candidate);
       if (closest_dist == 0.0f || candidate_dist < closest_dist) {
+        if (candidate_dist > player->weapon_state.max_target_range)
+          continue;
+
         closest = candidate;
         closest_dist = candidate_dist;
       }
