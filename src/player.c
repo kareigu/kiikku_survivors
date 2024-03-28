@@ -17,6 +17,12 @@ player_t player_create() {
                   .mp = 10,
           },
           .state = 0,
+          .weapon_state = player_weapon_create(),
+  };
+}
+
+player_weapon_state_t player_weapon_create() {
+  return (player_weapon_state_t){
           .shot_interval = 0.250f,
           .time_since_shot = 0.0f,
   };
@@ -75,11 +81,11 @@ void player_handle_input(player_t* player, inputs_t inputs) {
 
 void player_update(player_t* player) {
   float delta = GetFrameTime();
-  player->time_since_shot += delta;
+  player->weapon_state.time_since_shot += delta;
 
-  if (player->time_since_shot >= player->shot_interval) {
+  if (player->weapon_state.time_since_shot >= player->weapon_state.shot_interval) {
     player_shoot(player);
-    player->time_since_shot = 0;
+    player->weapon_state.time_since_shot = 0;
   }
 }
 
