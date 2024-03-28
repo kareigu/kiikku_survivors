@@ -1,6 +1,7 @@
 #include "game.h"
 #include "debug.h"
 #include "enemy.h"
+#include "item.h"
 #include "player.h"
 #include "projectile.h"
 #include "renderer.h"
@@ -27,12 +28,19 @@ void game_init() {
 }
 
 void update_game_state() {
+  static game_state_t old_state = {};
   float delta = GetFrameTime();
   game_state.time_since_prev_wave += delta;
   game_state.camera.target = Vector2Multiply(game_state.player.pos, (Vector2){(float) VIEWPORT_TILE, (float) VIEWPORT_TILE});
   float viewport_x = viewport_get()->texture.width;
   float viewport_y = viewport_get()->texture.height;
   game_state.camera.offset = (Vector2){viewport_x / 2, viewport_y / 2};
+
+  if (old_state.stats.kills < game_state.stats.kills && game_state.stats.kills % 100 == 0) {
+    item_t item = item_create();
+    player_add_item(&game_state.player, item);
+  }
+  old_state = game_state;
 }
 
 game_loop_status_t game_loop() {
