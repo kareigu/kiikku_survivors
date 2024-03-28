@@ -9,6 +9,8 @@ typedef enum : u8 {
 typedef struct {
   item_type_t type;
   u8 level;
+  float action_interval;
+  float time_since_action;
 } item_t;
 
 

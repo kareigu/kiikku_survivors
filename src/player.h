@@ -31,5 +31,7 @@ void player_handle_input(player_t* player, inputs_t inputs);
 void player_update(player_t* player);
 void player_shoot(player_t* player);
 void player_add_item(player_t* player, item_t item);
+void player_item_update(player_t* player, item_t* item);
 void player_draw(const player_t* player);
+void player_free(player_t* player);
 #endif
