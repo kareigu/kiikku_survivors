@@ -21,6 +21,7 @@ set(PROJECT_SOURCES
     src/projectile.c
     src/game.c
     src/settings.c
+    src/item.c
     src/menus/main_menu.c
     src/menus/loading_screen.c
 )
