@@ -56,7 +56,7 @@ void enemy_spawn_wave(Vector2 player_pos, u64 amount) {
       continue;
 
     memcpy(&s_enemy_buffer[i], &enemies[ENEMY_TYPE_TEST], sizeof(enemy_t));
-    float spawn_range = GetRandomValue(25, 35);
+    float spawn_range = GetRandomValue(35, 45);
     double r = spawn_range * sqrt(GetRandomValue(500, 1000) / 1000.0);
     double theta = (GetRandomValue(0, 1000) / 1000.0) * 2 * PI;
 
